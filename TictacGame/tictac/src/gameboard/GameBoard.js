@@ -1,55 +1,62 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Tile from '../tiles/Tile';
 
+
+let  gameBoard = new Array(9).fill(null);
+
 const GameBoard = () => {
-    let gameBoard = new Array(9).fill(null);
-    let playerOne = true;
+    const [playerOne, setTurn] = useState(true);
+    
 
     const onClickTile = (id, setValue) => {
         if (playerOne){
             setValue("X")
             gameBoard[id] = "X"
-            playerOne=false
+            setTurn(false)
 
         }
         else{
             setValue("O")
             gameBoard[id] = "O"
-            playerOne = true
+            setTurn(true)
         }
+        console.log(gameBoard)
     }
 
+    // When playerOne changes check game state
+    useEffect(()=> { 
+        checkGameState()
+    }, [playerOne])
+
+
     const checkGameState = () => {
-        
-        if (gameBoard[0] == gameBoard[1] == gameBoard[2]){  // Horizontal Checks
+        // Co-Author: Meherwan Singh Gill
+        if ((gameBoard[0] == gameBoard[1] == gameBoard[2] == ("X" || "O")) // Horizontal Checks
+        ||
+        (gameBoard[3] == gameBoard[4] == gameBoard[5] == ("X" || "O"))
+        ||
+        (gameBoard[6] == gameBoard[7] == gameBoard[8] == ("X" || "O"))
+        ||
+        (gameBoard[0] == gameBoard[3] == gameBoard[6] == ("X" || "O")) // Vertical Checks
+        ||
+        (gameBoard[1] == gameBoard[4] == gameBoard[7] == ("X" || "O"))
+        ||   
+        (gameBoard[2] == gameBoard[5] == gameBoard[8] == ("X" || "O")) 
+        ||
+        (gameBoard[6] == gameBoard[4] == gameBoard[2] == ("X" || "O")) // Fowards Slash Check
+        ||
+        (gameBoard[0] == gameBoard[4] == gameBoard[8] == ("X" || "O")) // Backward Slash Check
+         ){
+            console.log("THIS WAS CALLED")
             gameBoard = new Array(9).fill(null);
-        }
-        else if (gameBoard[3] == gameBoard[4] == gameBoard[5]){
-            gameBoard = new Array(9).fill(null);
-        }
-        else if (gameBoard[6] == gameBoard[7] == gameBoard[8]){
-            gameBoard = new Array(9).fill(null);
-        }
-        else if (gameBoard[0] == gameBoard[3] == gameBoard[6]) { // Vertical Checks
-            gameBoard = new Array(9).fill(null);
-        }
-        else if (gameBoard[1] == gameBoard[4] == gameBoard[7]){
-            gameBoard = new Array(9).fill(null);
-        }
-        else if (gameBoard[2] == gameBoard[5] == gameBoard[8]){
-            gameBoard = new Array(9).fill(null);
-        }
-        else if (gameBoard[6] == gameBoard[4] == gameBoard[2]){ // Foward Slash
-            gameBoard = new Array(9).fill(null);
-        }
-        else if (gameBoard[0] == gameBoard[4] == gameBoard[8]){  // Backward Slash
-            gameBoard = new Array(9).fill(null);
-        }
+            
+         }
+
     }
 
     const setupTiles = () => {
         return gameBoard.map((element, index) => {
-            return <Tile id={index} onChangeFunc={onClickTile} />
+            return <Tile key={index} id={index} onChangeFunc={onClickTile} />
         })
     }
 
