@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import Tile from '../tiles/Tile';
 
 
-let  gameBoard = new Array(9).fill(null);
+let gameBoard = new Array(9).fill(null);
 
 const GameBoard = () => {
+    let [playerOneScore, setPlayerOneScore] = useState(0);
+    let [playerTwoScore, setPlayerTwoScore] = useState(0);
+    let [roundNo, setRoundNo] = useState(1)
+
     const [playerOne, setTurn] = useState(true);
     
 
@@ -25,46 +29,71 @@ const GameBoard = () => {
 
     // When playerOne changes check game state
     useEffect(()=> { 
+        console.log("This is being called")
+        if (gameBoard[1] == "X" && gameBoard[0] =="X" && gameBoard[2] =="X"){
+            console.log("Hello If Here")
+        }
         checkGameState()
     }, [playerOne])
 
 
     const checkGameState = () => {
-        // Co-Author: Meherwan Singh Gill
-        if ((gameBoard[0] == gameBoard[1] == gameBoard[2] == ("X" || "O")) // Horizontal Checks
-        ||
-        (gameBoard[3] == gameBoard[4] == gameBoard[5] == ("X" || "O"))
-        ||
-        (gameBoard[6] == gameBoard[7] == gameBoard[8] == ("X" || "O"))
-        ||
-        (gameBoard[0] == gameBoard[3] == gameBoard[6] == ("X" || "O")) // Vertical Checks
-        ||
-        (gameBoard[1] == gameBoard[4] == gameBoard[7] == ("X" || "O"))
-        ||   
-        (gameBoard[2] == gameBoard[5] == gameBoard[8] == ("X" || "O")) 
-        ||
-        (gameBoard[6] == gameBoard[4] == gameBoard[2] == ("X" || "O")) // Fowards Slash Check
-        ||
-        (gameBoard[0] == gameBoard[4] == gameBoard[8] == ("X" || "O")) // Backward Slash Check
-         ){
-            console.log("THIS WAS CALLED")
-            gameBoard = new Array(9).fill(null);
-            
-         }
 
+        // // Co-Author: Meherwan Singh Gill
+        if ((compareThreeLocations(0,1,2) || compareThreeLocations(0,1,2)) // Horizontal Checks
+        ||
+        (compareThreeLocations(3,4,5) || compareThreeLocations(3,4,5))
+        ||
+        (compareThreeLocations(6,7,8) || compareThreeLocations(6,7,8))
+        ||
+        (compareThreeLocations(0,3,6) || compareThreeLocations(0,3,6)) // Vertical Checks
+        ||
+        (compareThreeLocations(1,4,7) || compareThreeLocations(1,4,7))
+        ||  
+        (compareThreeLocations(2,5,8) || compareThreeLocations(2,5,8)) 
+        ||
+        (compareThreeLocations(6,4,2) || compareThreeLocations(6,4,2)) // Fowards Slash Check
+        ||
+        (compareThreeLocations(0,4,8) || compareThreeLocations(0,4,8)) )// Backward Slash Check
+         {
+            gameBoard = new Array(9).fill(null);
+            setRoundNo(++roundNo)
+            if (playerOne){
+                setPlayerOneScore(++playerOneScore);
+            } 
+            else{
+                setPlayerTwoScore(++playerTwoScore);
+            }
+            console.log("Player One: " + playerOneScore + "\nPlayer Two: " + playerTwoScore)
+            
+        }
     }
 
     const setupTiles = () => {
         return gameBoard.map((element, index) => {
-            return <Tile key={index} id={index} onChangeFunc={onClickTile} />
+            return <Tile key={`${roundNo}_${index}`} id={index} onChangeFunc={onClickTile}/>
         })
     }
 
+    const compareThreeLocations = (i,j,k) =>{
+        if(gameBoard[i] === gameBoard[j]  && gameBoard[j] === gameBoard[k] ){
+            if(gameBoard[i] === "X" || gameBoard[i] === "O"){
+                return true
+            }
+        }
+        return  false
+    }
+
+
     return (
         <div>
+        <h1>score {playerTwoScore}</h1>
+        {console.log("render")}
         {setupTiles()}
         </div>
     )
+
+
 }
 
 export default GameBoard;

@@ -6,8 +6,9 @@ const Tile = ({id, onChangeFunc}) => {
 
     return (
         <div>
-           
-            <button onClick={() => {onChangeFunc(id, setValue)}}>{value}</button>
+            <button onClick={() => {onChangeFunc(id, setValue)}}>
+            {value}
+            </button>
         </div>
     )
 }
