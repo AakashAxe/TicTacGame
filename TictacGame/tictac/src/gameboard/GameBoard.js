@@ -29,10 +29,6 @@ const GameBoard = () => {
 
     // When playerOne changes check game state
     useEffect(()=> { 
-        console.log("This is being called")
-        if (gameBoard[1] == "X" && gameBoard[0] =="X" && gameBoard[2] =="X"){
-            console.log("Hello If Here")
-        }
         checkGameState()
     }, [playerOne])
 
@@ -57,7 +53,8 @@ const GameBoard = () => {
         (compareThreeLocations(0,4,8) || compareThreeLocations(0,4,8)) )// Backward Slash Check
          {
             gameBoard = new Array(9).fill(null);
-            setRoundNo(++roundNo)
+            
+            
             if (playerOne){
                 setPlayerOneScore(++playerOneScore);
             } 
@@ -65,18 +62,34 @@ const GameBoard = () => {
                 setPlayerTwoScore(++playerTwoScore);
             }
             console.log("Player One: " + playerOneScore + "\nPlayer Two: " + playerTwoScore)
-            
+
+            setRoundNo(++roundNo)
         }
     }
 
+    useEffect( ()=> {
+        if (roundNo > 1){
+            console.log(roundNo)
+            let name = ""
+            // if (!playerOne){
+            //     name = "Player 2"
+            // }  
+            if (playerOne ? name="Player 1" : name="Player 2");
+            alert(name + " Won!!")
+        }
+
+    }, [roundNo]
+    )
+
     const setupTiles = () => {
         return gameBoard.map((element, index) => {
+            // When tile key changees, it renders that component
             return <Tile key={`${roundNo}_${index}`} id={index} onChangeFunc={onClickTile}/>
         })
     }
 
     const compareThreeLocations = (i,j,k) =>{
-        if(gameBoard[i] === gameBoard[j]  && gameBoard[j] === gameBoard[k] ){
+        if(gameBoard[i] === gameBoard[j] && gameBoard[j] === gameBoard[k] ){
             if(gameBoard[i] === "X" || gameBoard[i] === "O"){
                 return true
             }
@@ -87,7 +100,7 @@ const GameBoard = () => {
 
     return (
         <div>
-        <h1>score {playerTwoScore}</h1>
+        <h1>Player 1: {playerOneScore} Player 2: {playerTwoScore}</h1>
         {console.log("render")}
         {setupTiles()}
         </div>
