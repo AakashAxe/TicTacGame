@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Tile from '../tiles/Tile';
-
+import "./GameBoard.css";
 
 let gameBoard = new Array(9).fill(null);
 
@@ -83,9 +83,16 @@ const GameBoard = () => {
 
     const setupTiles = () => {
         return gameBoard.map((element, index) => {
+            
             // When tile key changees, it renders that component
-            return <Tile key={`${roundNo}_${index}`} id={index} onChangeFunc={onClickTile}/>
-        })
+            return (
+        
+            <div key={`${roundNo}_${index}`} className="grid-item">
+             <Tile id={index} onChangeFunc={onClickTile}/>
+            </div>
+            )
+    
+        }) 
     }
 
     const compareThreeLocations = (i,j,k) =>{
@@ -100,9 +107,11 @@ const GameBoard = () => {
 
     return (
         <div>
-        <h1>Player 1: {playerOneScore} Player 2: {playerTwoScore}</h1>
-        {console.log("render")}
-        {setupTiles()}
+            <h1>Player 1: {playerOneScore} Player 2: {playerTwoScore}</h1>
+            <div className="grid-container">
+                {console.log("render")}
+                {setupTiles()}
+            </div>
         </div>
     )
 

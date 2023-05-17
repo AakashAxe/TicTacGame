@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import "./Tile.css";
 
 const Tile = ({id, onChangeFunc}) => {
 
