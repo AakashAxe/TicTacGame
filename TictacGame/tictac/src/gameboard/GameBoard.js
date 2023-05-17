@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { Context } from '../context';
 import Tile from '../tiles/Tile';
 import "./GameBoard.css";
 
+
 let gameBoard = new Array(9).fill(null);
 
+
 const GameBoard = () => {
-    let [playerOneScore, setPlayerOneScore] = useState(0);
-    let [playerTwoScore, setPlayerTwoScore] = useState(0);
+   
+    let {playerOneScore, setPlayerOneScore, playerTwoScore, setPlayerTwoScore} = useContext(Context)
+   
     let [roundNo, setRoundNo] = useState(1)
 
     const [playerOne, setTurn] = useState(true);
