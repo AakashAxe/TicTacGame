@@ -14,6 +14,7 @@ const GameBoard = () => {
     let [roundNo, setRoundNo] = useState(1)
 
     const [playerOne, setTurn] = useState(true);
+
     
 
     const onClickTile = (id, setValue) => {
@@ -111,7 +112,10 @@ const GameBoard = () => {
 
     return (
         <div>
-            <h1>Player 1: {playerOneScore} Player 2: {playerTwoScore}</h1>
+            <div className="score-container">
+                <div className="player-one">Player 1: {playerOneScore} </div> 
+                <div className="player-two">Player 2: {playerTwoScore}</div>
+            </div>
             <div className="grid-container">
                 {console.log("render")}
                 {setupTiles()}

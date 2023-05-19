@@ -5,3 +5,21 @@
   background-color: #2196F3;
   padding: 10px;
 }
+
+.player-one{
+    padding: 10px;
+    width: 100px;
+    border: 1px;
+    float: left;    
+    
+}
+
+.player-two{
+    padding: 10px;
+    width: 100px;
+   float: right;
+}
+
+.score-container{
+    width: 500px;
+}

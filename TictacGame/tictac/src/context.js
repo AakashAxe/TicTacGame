@@ -9,5 +9,14 @@ const Provider = ({children}) => {
 
 }
 
+export const PlayerContext = createContext();
+
+const PlayerProvider = ({children}) => {
+
+    let [p1Name, setP1Name] = useState(null);
+    let [p2Name, setP2Name] = useState(null);
+    return <PlayerContext.Provider value={(p1Name, p2Name, setP1Name, setP2Name)} >{children}</PlayerContext.Provider>
+}
+
 
 export default Provider;

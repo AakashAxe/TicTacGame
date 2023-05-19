@@ -1,12 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
 import GameBoard from './gameboard/GameBoard';
-import Provider from './context';
+import StoryBoard from './storyboard/StoryBoard';
+import  {StartScreen }from './StartScreen';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <div>
-        <GameBoard />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/storyboard" element={<StoryBoard/>}/>
+            <Route path="/gameboard" element={<GameBoard />}/>
+            <Route index element={<StartScreen />}/>
+          </Routes>
+        </BrowserRouter>
+      
     </div>
   );
 }
