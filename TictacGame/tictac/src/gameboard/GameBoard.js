@@ -60,7 +60,7 @@ const GameBoard = () => {
             gameBoard = new Array(9).fill(null);
             
             
-            if (playerOne){
+            if (!   playerOne){
                 setPlayerOneScore(++playerOneScore);
             } 
             else{
@@ -79,8 +79,9 @@ const GameBoard = () => {
             // if (!playerOne){
             //     name = "Player 2"
             // }  
-            if (playerOne ? name="Player 1" : name="Player 2");
+            if (!playerOne ? name="Player 1" : name="Player 2");
             alert(name + " Won!!")
+            setTurn(true)
         }
 
     }, [roundNo]
