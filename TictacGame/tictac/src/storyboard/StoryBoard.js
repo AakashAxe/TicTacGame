@@ -1,6 +1,7 @@
 import { Outlet, Link } from "react-router-dom";
 import { PlayerContext } from "../context";
 import { useContext } from "react";
+import "./StoryBoard.css";
 
 const StoryBoard = () => {
 
@@ -19,9 +20,10 @@ const StoryBoard = () => {
     }
 
     return (
-        <div>
+        <div className="story-board">
             {console.log("Story picked") }   
             {stories[getRandomInt(stories.length)]}
+            <br/>
             <Link to="/gameBoard">BATTLE!!</Link>
         </div>
     )
