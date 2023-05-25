@@ -7,13 +7,12 @@ const Tile = ({id, onChangeFunc}) => {
     const [disabled, setDisabled] = useState(false);
 
     return (
-        <div>
-            <button disabled={disabled} onClick={() => {
+        <div className='tile' disabled={disabled} onClick={() => {
                 onChangeFunc(id, setValue)
                 setDisabled(true)
                 }}>
             {value}
-            </button>
+
         </div>
     )
 }

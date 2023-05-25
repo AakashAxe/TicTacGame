@@ -92,7 +92,6 @@ const GameBoard = () => {
             
             // When tile key changees, it renders that component
             return (
-        
             <div key={`${roundNo}_${index}`} className="grid-item">
              <Tile id={index} onChangeFunc={onClickTile}/>
             </div>
@@ -112,7 +111,7 @@ const GameBoard = () => {
 
 
     return (
-        <div>
+        <div className="gameboard-main">
             <div className="score-container">
                 <div className="player-one">Player 1: {playerOneScore} </div> 
                 <div className="player-two">Player 2: {playerTwoScore}</div>
