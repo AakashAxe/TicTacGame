@@ -13,6 +13,8 @@ const GameBoard = () => {
    
     let [roundNo, setRoundNo] = useState(1)
 
+    let [isDraw, setIsDraw] = useState(false);
+
     const [playerOne, setTurn] = useState(true);
 
     
@@ -58,8 +60,6 @@ const GameBoard = () => {
         (compareThreeLocations(0,4,8) || compareThreeLocations(0,4,8)) )// Backward Slash Check
          {
             gameBoard = new Array(9).fill(null);
-            
-            
             if (!   playerOne){
                 setPlayerOneScore(++playerOneScore);
             } 
@@ -70,17 +70,31 @@ const GameBoard = () => {
 
             setRoundNo(++roundNo)
         }
+        else{
+            
+            if (!gameBoard.includes(null)){// Incase all tiles are filled and its a draw 
+                gameBoard = new Array(9).fill(null);
+                setIsDraw(true);
+                console.log("This is called")
+                setRoundNo(++roundNo);
+            } 
+            
+        }
     }
 
     useEffect( ()=> {
         if (roundNo > 1){
             console.log(roundNo)
             let name = ""
-            // if (!playerOne){
-            //     name = "Player 2"
-            // }  
-            if (!playerOne ? name="Player 1" : name="Player 2");
-            alert(name + " Won!!")
+            if (!isDraw){
+                if (!playerOne ? name="Player 1" : name="Player 2");
+                alert("Round " + roundNo + ": \n" + name + " Won!!")
+            }
+            else {
+                setIsDraw(!isDraw)
+                alert("It's a Draw!!")
+                console.log(roundNo)
+            }
             setTurn(true)
         }
 
